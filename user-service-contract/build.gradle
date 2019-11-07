@@ -77,7 +77,6 @@ project("${rootProject.appName}-server") { // user-service-server
                     'dateLibrary'  : 'java8', // Date library to use
                     'useTags'      : 'true',  // Use tags for the naming
                     'java8'      : 'true',
-                    'async'      : 'true',
                     'delegatePattern'      : 'false',
                     'useBeanValidation'      : 'true',
                     'interfaceOnly': 'true'   // Generating the Controller API interface and the models only
