@@ -24,10 +24,8 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web:2.1.8.RELEASE'
-
     implementation 'com.kfirfer:user-service-server:0.0.2'
 }
 

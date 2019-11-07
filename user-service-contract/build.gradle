@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("io.swagger:swagger-codegen:2.4.8")
+        classpath("io.swagger:swagger-codegen:2.4.9")
     }
 }
 
@@ -12,8 +12,6 @@ apply plugin: 'base'
 
 group = 'com.kfirfer'
 
-import io.swagger.codegen.DefaultGenerator
-import io.swagger.codegen.config.CodegenConfigurator
 
 subprojects {
     repositories {
@@ -58,10 +56,13 @@ ext.modelPackage = 'com.kfirfer.userservice.model'
 ext.swaggerFile = "${rootDir}/api/swagger.yml"
 
 
+import io.swagger.codegen.DefaultGenerator
+import io.swagger.codegen.config.CodegenConfigurator
+
 project("${rootProject.appName}-server") { // user-service-server
     dependencies {
-        implementation('org.springframework.boot:spring-boot-starter-web:2.1.8.RELEASE')
-        implementation('io.springfox:springfox-swagger2:2.9.2')
+        implementation 'org.springframework.boot:spring-boot-starter-web:2.1.8.RELEASE'
+        implementation 'io.swagger:swagger-annotations:1.5.24'
     }
 
     task generateServer {

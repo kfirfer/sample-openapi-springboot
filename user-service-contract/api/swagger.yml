@@ -289,7 +289,7 @@ paths:
         "200":
           description: successful operation
           schema:
-            $ref: "#/definitions/ApiResponse"
+            $ref: "#/definitions/ModelApiResponse"
       security:
         - petstore_auth:
             - "write:pets"
@@ -684,7 +684,7 @@ definitions:
           - sold
     xml:
       name: Pet
-  ApiResponse:
+  ModelApiResponse:
     properties:
       code:
         type: integer
