@@ -63,6 +63,7 @@ project("${rootProject.appName}-server") { // user-service-server
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-web:2.1.8.RELEASE'
         implementation 'io.swagger:swagger-annotations:1.5.24'
+        implementation 'com.github.joschi.jackson:jackson-datatype-threetenbp:2.6.4'
     }
 
     task generateServer {
@@ -74,10 +75,11 @@ project("${rootProject.appName}-server") { // user-service-server
             config.setModelPackage(rootProject.modelPackage)        // Package to be used for the API models
             config.setInputSpec(rootProject.swaggerFile.toString()) // The swagger API file
             config.setOutputDir(project.buildDir.toString())
+
             config.setAdditionalProperties([
-                    'dateLibrary'  : 'java8', // Date library to use
+                    'defaultInterfaces'      : 'false',
                     'useTags'      : 'true',  // Use tags for the naming
-                    'java8'      : 'true',
+                    'java8'      : 'false',
                     'delegatePattern'      : 'false',
                     'useBeanValidation'      : 'true',
                     'interfaceOnly': 'true'   // Generating the Controller API interface and the models only
