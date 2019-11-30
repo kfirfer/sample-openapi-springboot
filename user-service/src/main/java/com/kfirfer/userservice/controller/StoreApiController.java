@@ -15,7 +15,7 @@ public class StoreApiController implements StoreApi {
 
 
     @Override
-    public ResponseEntity<Void> deleteOrder(Integer orderId) {
+    public ResponseEntity<Void> deleteOrder(Long orderId) {
         return null;
     }
 

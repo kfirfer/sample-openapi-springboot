@@ -32,7 +32,7 @@ public interface StoreApi {
             @ApiResponse(responseCode = "404", description = "Order not found")})
     @DeleteMapping(value = "/store/order/{orderId}")
     ResponseEntity<Void> deleteOrder(
-            @Parameter(description = "ID of the order that needs to be deleted", required = true, schema = @Schema(type = "integer", format = "int64")) @PathVariable("orderId") Integer orderId);
+            @Parameter(description = "ID of the order that needs to be deleted", required = true, schema = @Schema(type = "integer", format = "int64")) @PathVariable("orderId") Long orderId);
 
     @Operation(summary = "Returns pet inventories by status", description = "Returns a map of status codes to quantities", security = {
             @SecurityRequirement(name = "api_key")}, tags = {"store"})
