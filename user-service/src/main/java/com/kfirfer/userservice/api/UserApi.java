@@ -21,7 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @javax.annotation.Generated(value = "org.springdoc.demo.app2.codegen.languages.SpringCodegen", date = "2019-07-11T00:09:29.839+02:00[Europe/Paris]")
@@ -76,8 +75,8 @@ public interface UserApi {
             @ApiResponse(responseCode = "400", description = "Invalid username/password supplied", content = @Content)})
     @GetMapping(value = "/user/login", produces = {"application/xml", "application/json"})
     ResponseEntity<String> loginUser(
-            @NotNull @Parameter(description = "The user name for login", required = false) @Valid @RequestParam(value = "username", required = false) String username,
-            @NotNull @Parameter(description = "The password for login in clear text", required = false) @Valid @RequestParam(value = "password", required = false) String password);
+            @Parameter(description = "The user name for login", required = false) @Valid @RequestParam(value = "username", required = false) String username,
+            @Parameter(description = "The password for login in clear text", required = false) @Valid @RequestParam(value = "password", required = false) String password);
 
     @Operation(summary = "Logs out current logged in user session", tags = {"user"})
     @ApiResponses(value = {@ApiResponse(description = "successful operation")})

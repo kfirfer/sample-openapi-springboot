@@ -3,9 +3,9 @@ package com.kfirfer.userservice.controller;
 import com.kfirfer.userservice.api.PetApi;
 import com.kfirfer.userservice.model.ModelApiResponse;
 import com.kfirfer.userservice.model.Pet;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -13,8 +13,10 @@ import java.util.List;
 @RestController
 public class PetApiController implements PetApi {
 
+
     @Override
-    public void addPet(@Valid Pet pet) {
+    public ResponseEntity<Pet> addPet(@Valid Pet pet) {
+        return null;
     }
 
     @Override
@@ -23,7 +25,7 @@ public class PetApiController implements PetApi {
     }
 
     @Override
-    public ResponseEntity<List<Pet>> findPetsByStatus(@Valid List<String> status) {
+    public ResponseEntity<List<Pet>> findPetsByStatus(@Valid String status) {
         return null;
     }
 
@@ -38,7 +40,7 @@ public class PetApiController implements PetApi {
     }
 
     @Override
-    public ResponseEntity<Void> updatePet(@Valid Pet pet) {
+    public ResponseEntity<Pet> updatePet(@Valid Pet pet) {
         return null;
     }
 
@@ -48,7 +50,7 @@ public class PetApiController implements PetApi {
     }
 
     @Override
-    public ResponseEntity<ModelApiResponse> uploadFile(Long petId, String additionalMetadata, @Valid MultipartFile file) {
+    public ResponseEntity<ModelApiResponse> uploadFile(Long petId, String additionalMetadata, Resource file) {
         return null;
     }
 }

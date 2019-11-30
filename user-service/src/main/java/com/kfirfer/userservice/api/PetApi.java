@@ -20,9 +20,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -37,13 +37,13 @@ public interface PetApi {
             @SecurityRequirement(name = "petstore_auth", scopes = {"write:pets", "read:pets"})}, tags = {"pet"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(schema = @Schema(implementation = Pet.class))),
-            @ApiResponse(responseCode = "405", description = "Invalid input")
+            @ApiResponse(responseCode = "405", description = "Invalid input", content = @Content)
     })
     @PostMapping(value = "/pet",
             consumes = {"application/json", "application/xml", "application/x-www-form-urlencoded"},
             produces = {"application/xml", "application/json"}
     )
-    void addPet(
+    ResponseEntity<Pet> addPet(
             @Parameter(description = "Create a new pet in the store", required = true) @Valid @RequestBody Pet pet);
 
     @Operation(summary = "Deletes a pet", description = "", security = {
@@ -61,7 +61,7 @@ public interface PetApi {
             @ApiResponse(responseCode = "400", description = "Invalid status value", content = @Content)})
     @GetMapping(value = "/pet/findByStatus", produces = {"application/xml", "application/json"})
     ResponseEntity<List<Pet>> findPetsByStatus(
-            @Parameter(explode = Explode.TRUE, name = "status", in = ParameterIn.QUERY, description = "Status values that need to be considered for filter", style = ParameterStyle.FORM, schema = @Schema(type = "string", defaultValue = "available", allowableValues = {"available", "pending", "sold"})) @Valid @RequestParam(value = "status", required = false) List<String> status);
+            @Parameter(explode = Explode.TRUE, name = "status", in = ParameterIn.QUERY, description = "Status values that need to be considered for filter", style = ParameterStyle.FORM, schema = @Schema(type = "string", defaultValue = "available", allowableValues = {"available", "pending", "sold"})) @Valid @RequestParam(value = "status", required = false) String status);
 
 
     @Operation(summary = "Finds Pets by tags", description = "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.", security = {
@@ -91,17 +91,17 @@ public interface PetApi {
                     content =
                             {@Content(mediaType = "application/xml", schema = @Schema(implementation = Pet.class)), @Content(mediaType = "application/json", schema = @Schema(implementation = Pet.class))}
             ),
-            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
-            @ApiResponse(responseCode = "404", description = "Pet not found"),
-            @ApiResponse(responseCode = "405", description = "Validation exception")})
+            @ApiResponse(responseCode = "400", description = "Invalid ID supplied", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Pet not found", content = @Content),
+            @ApiResponse(responseCode = "405", description = "Validation exception", content = @Content)})
     @PutMapping(value = "/pet", consumes = {"application/json", "application/xml", "application/x-www-form-urlencoded"})
-    ResponseEntity<Void> updatePet(
+    ResponseEntity<Pet> updatePet(
             @Parameter(description = "Update an existent pet in the store", required = true) @Valid @RequestBody Pet pet);
 
     @Operation(summary = "Updates a pet in the store with form data", description = "", security = {
             @SecurityRequirement(name = "petstore_auth", scopes = {"write:pets", "read:pets"})}, tags = {"pet"})
     @ApiResponses(value = {@ApiResponse(responseCode = "405", description = "Invalid input")})
-    @PostMapping(value = "/pet/{petId}", consumes = {"application/x-www-form-urlencoded"})
+    @PostMapping(value = "/pet/{petId}")
     ResponseEntity<Void> updatePetWithForm(
             @Parameter(description = "ID of pet that needs to be updated", required = true) @PathVariable("petId") Long petId,
             @Parameter(description = "Name of pet that needs to be updated") @RequestParam(value = "name", required = false) String name,
@@ -112,10 +112,11 @@ public interface PetApi {
             @SecurityRequirement(name = "petstore_auth", scopes = {"write:pets", "read:pets"})}, tags = {"pet"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = ModelApiResponse.class)))})
-    @PostMapping(value = "/pet/{petId}/uploadImage", produces = {"application/json"}, consumes = {
-            "application/octet-stream"})
+    @PostMapping(value = "/pet/{petId}/uploadImage",
+            produces = {"application/json"},
+            consumes = {"application/octet-stream"})
     ResponseEntity<ModelApiResponse> uploadFile(
             @Parameter(description = "ID of pet to update", required = true) @PathVariable("petId") Long petId,
             @Parameter(description = "Additional Metadata") @RequestParam(value = "additionalMetadata", required = false) String additionalMetadata,
-            @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/octet-stream", schema = @Schema(type = "string", format = "binary"))) @Valid @RequestPart("file") MultipartFile file);
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/octet-stream", schema = @Schema(type = "string", format = "binary"))) @Valid @RequestBody Resource file);
 }
