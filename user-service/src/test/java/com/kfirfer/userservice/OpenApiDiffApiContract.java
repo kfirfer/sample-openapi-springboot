@@ -7,7 +7,6 @@ import com.qdesrame.openapi.diff.output.MarkdownRender;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.FileWriter;
@@ -16,7 +15,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest()
 public class OpenApiDiffApiContract {
 
     private Path resourceDirectory = Paths.get("src", "test", "resources");
