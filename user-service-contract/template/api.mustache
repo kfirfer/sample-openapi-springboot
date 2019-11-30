@@ -96,7 +96,7 @@ public interface {{classname}} {
     {{/virtualService}}
     @Operation(summary = "{{{summary}}}", operationId = "{{{operationId}}}", description = "{{{notes}}}"{{#returnBaseType}}{{/returnBaseType}}{{#returnContainer}}{{/returnContainer}}{{#hasAuthMethods}}, security = {
         {{#authMethods}}@SecurityRequirement(name = "{{name}}"{{#isOAuth}}, scopes = {
-            {{#scopes}}@AuthorizationScope(scope = "{{scope}}", description = "{{description}}"){{#hasMore}},
+            {{#scopes}}"{{scope}}"{{#hasMore}},
             {{/hasMore}}{{/scopes}}
             }{{/isOAuth}}){{#hasMore}},
         {{/hasMore}}{{/authMethods}}
