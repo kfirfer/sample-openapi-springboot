@@ -4,10 +4,14 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("io.swagger.codegen.v3:swagger-codegen:3.0.14")
+        classpath "org.openapitools:openapi-generator-gradle-plugin:4.2.1"
+
     }
 }
 
+plugins {
+    id "org.openapi.generator" version "4.2.1"
+}
 apply plugin: 'base'
 
 group = 'com.kfirfer'
@@ -54,41 +58,36 @@ ext.appName = 'user-service'
 ext.apiPackage = 'com.kfirfer.userservice.api'
 ext.modelPackage = 'com.kfirfer.userservice.model'
 ext.swaggerFile = "${rootDir}/api/swagger.yml"
+ext.templateDirectoryVar = "${rootDir}/template"
 
+project("${rootProject.appName}-server") {
 
-import io.swagger.codegen.DefaultGenerator
-import io.swagger.codegen.config.CodegenConfigurator
-
-project("${rootProject.appName}-server") { // user-service-server
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-web:2.2.1.RELEASE'
-        implementation 'io.swagger:swagger-annotations:1.6.0'
+        implementation 'io.swagger:swagger-annotations:1.5.24'
         implementation 'com.github.joschi.jackson:jackson-datatype-threetenbp:2.6.4'
         implementation 'org.openapitools:jackson-databind-nullable:0.2.0'
         implementation 'io.swagger.core.v3:swagger-annotations:2.1.0'
     }
+    openApiGenerate {
+        generatorName = "spring"
+        inputSpec = rootProject.swaggerFile.toString()
+        outputDir = project.buildDir.toString()
+        apiPackage = rootProject.apiPackage
+        modelPackage = rootProject.modelPackage
 
-    task generateServer {
-        doLast {
-            def config = new CodegenConfigurator()
-            config.setLang("spring")
-            config.setLibrary("spring-boot")
-            config.setApiPackage(rootProject.apiPackage)            // Package to be used for the API interfaces
-            config.setModelPackage(rootProject.modelPackage)        // Package to be used for the API models
-            config.setInputSpec(rootProject.swaggerFile.toString()) // The swagger API file
-            config.setOutputDir(project.buildDir.toString())
+        templateDir = rootProject.templateDirectoryVar
 
-            config.setAdditionalProperties([
-                    'defaultInterfaces'      : 'false',
-                    'useTags'      : 'true',  // Use tags for the naming
-                    'java8'      : 'false',
-                    'delegatePattern'      : 'false',
-                    'useBeanValidation'      : 'true',
-                    'interfaceOnly': 'true'   // Generating the Controller API interface and the models only
-            ])
-            new DefaultGenerator().opts(config.toClientOptInput()).generate() // Executing the generation
-        }
+        configOptions = [
+                dateLibrary           : "java7",
+                'skipDefaultInterface': 'true',
+                'useTags'             : 'true',
+                'interfaceOnly'       : 'true',
+                'useBeanValidation'   : 'true',
+                'delegatePattern'     : 'false'
+        ]
     }
-
-    compileJava.dependsOn('generateServer')
 }
+
+
+

@@ -13,17 +13,12 @@ import java.util.List;
 public class UserApiController implements UserApi {
 
     @Override
-    public ResponseEntity<Void> createUser(@Valid @RequestBody User body) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User body) {
         return null;
     }
 
     @Override
-    public ResponseEntity<Void> createUsersWithArrayInput(@Valid List<User> body) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Void> createUsersWithListInput(@Valid List<User> body) {
+    public ResponseEntity<User> createUsersWithListInput(@Valid List<User> body) {
         return null;
     }
 
