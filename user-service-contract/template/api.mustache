@@ -102,7 +102,7 @@ public interface {{classname}} {
         {{/hasMore}}{{/authMethods}}
     }{{/hasAuthMethods}}, tags={ {{#vendorExtensions.x-tags}}"{{tag}}",{{/vendorExtensions.x-tags}} })
     @ApiResponses(value = { {{#responses}}
-        @ApiResponse(responseCode = "{{{code}}}", description = "{{{message}}}"{{#baseType}}, content = @Content(schema = @Schema(implementation = {{{baseType}}}.class)){{/baseType}}){{#hasMore}},{{/hasMore}}{{/responses}} })
+        @ApiResponse(responseCode = "{{{code}}}", description = "{{{message}}}"{{#baseType}}{{/baseType}}{{^baseType}}, content = @Content{{/baseType}}){{#hasMore}},{{/hasMore}}{{/responses}} })
     {{#implicitHeaders}}
     @ApiImplicitParams({
     {{#headerParams}}
