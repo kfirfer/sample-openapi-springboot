@@ -58,11 +58,11 @@ public interface UserApi {
 
     @Operation(summary = "Get user by user name", tags = {"user"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class)), @Content(mediaType = "application/xml", schema = @Schema(implementation = User.class))}),
+            @ApiResponse(responseCode = "200", description = "successful operation"),
             @ApiResponse(responseCode = "400", description = "Invalid username supplied", content = @Content),
             @ApiResponse(responseCode = "404", description = "User not found", content = @Content)})
 
-    @GetMapping(value = "/user/{username}")
+    @GetMapping(value = "/user/{username}", produces = {"application/xml", "application/json"})
     ResponseEntity<User> getUserByName(
             @Parameter(description = "The name that needs to be fetched. Use user1 for testing. ", required = true) @PathVariable("username") String username);
 

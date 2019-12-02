@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.enums.Explode;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.enums.ParameterStyle;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -36,7 +35,7 @@ public interface PetApi {
     @Operation(summary = "Add a new pet to the store", description = "Add a new pet to the store", security = {
             @SecurityRequirement(name = "petstore_auth", scopes = {"write:pets", "read:pets"})}, tags = {"pet"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(schema = @Schema(implementation = Pet.class))),
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
             @ApiResponse(responseCode = "405", description = "Invalid input", content = @Content)
     })
     @PostMapping(value = "/pet",
@@ -57,7 +56,7 @@ public interface PetApi {
     @Operation(summary = "Finds Pets by status", description = "Multiple status values can be provided with comma separated strings", security = {
             @SecurityRequirement(name = "petstore_auth", scopes = {"write:pets", "read:pets"})}, tags = {"pet"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(array = @ArraySchema(schema = @Schema(implementation = Pet.class)))),
+            @ApiResponse(responseCode = "200", description = "successful operation"),
             @ApiResponse(responseCode = "400", description = "Invalid status value", content = @Content)})
     @GetMapping(value = "/pet/findByStatus", produces = {"application/xml", "application/json"})
     ResponseEntity<List<Pet>> findPetsByStatus(
@@ -67,7 +66,7 @@ public interface PetApi {
     @Operation(summary = "Finds Pets by tags", description = "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.", security = {
             @SecurityRequirement(name = "petstore_auth", scopes = {"write:pets", "read:pets"})}, tags = {"pet"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(array = @ArraySchema(schema = @Schema(implementation = Pet.class)))),
+            @ApiResponse(responseCode = "200", description = "successful operation"),
             @ApiResponse(responseCode = "400", description = "Invalid tag value", content = @Content)})
     @GetMapping(value = "/pet/findByTags", produces = {"application/xml", "application/json"})
     ResponseEntity<List<Pet>> findPetsByTags(@Parameter(description = "Tags to filter by", explode = Explode.TRUE, in = ParameterIn.QUERY, name = "tags", style = ParameterStyle.FORM) @Valid @RequestParam(value = "tags", required = false) List<String> tags);
@@ -77,7 +76,7 @@ public interface PetApi {
             @SecurityRequirement(name = "petstore_auth", scopes = {"write:pets", "read:pets"})
     }, tags = {"pet"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = Pet.class))),
+            @ApiResponse(responseCode = "200", description = "successful operation"),
             @ApiResponse(responseCode = "400", description = "Invalid ID supplied", content = @Content),
             @ApiResponse(responseCode = "404", description = "Pet not found", content = @Content)})
     @GetMapping(value = "/pet/{petId}", produces = {"application/xml", "application/json"})
@@ -111,7 +110,7 @@ public interface PetApi {
     @Operation(summary = "uploads an image", security = {
             @SecurityRequirement(name = "petstore_auth", scopes = {"write:pets", "read:pets"})}, tags = {"pet"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = ModelApiResponse.class)))})
+            @ApiResponse(responseCode = "200", description = "successful operation")})
     @PostMapping(value = "/pet/{petId}/uploadImage",
             produces = {"application/json"},
             consumes = {"application/octet-stream"})
