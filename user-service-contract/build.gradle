@@ -4,13 +4,13 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.openapitools:openapi-generator-gradle-plugin:4.2.1"
+        classpath "org.openapitools:openapi-generator-gradle-plugin:4.2.2"
 
     }
 }
 
 plugins {
-    id "org.openapi.generator" version "4.2.1"
+    id "org.openapi.generator" version "4.2.2"
 }
 apply plugin: 'base'
 
@@ -57,7 +57,7 @@ subprojects {
 ext.appName = 'user-service'
 ext.apiPackage = 'com.kfirfer.userservice.api'
 ext.modelPackage = 'com.kfirfer.userservice.model'
-ext.swaggerFile = "${rootDir}/api/swagger.yml"
+ext.swaggerFile = "${rootDir}/api/openapi.yml"
 ext.templateDirectoryVar = "${rootDir}/template"
 
 project("${rootProject.appName}-server") {
@@ -68,6 +68,10 @@ project("${rootProject.appName}-server") {
         implementation 'com.github.joschi.jackson:jackson-datatype-threetenbp:2.6.4'
         implementation 'org.openapitools:jackson-databind-nullable:0.2.0'
         implementation 'io.swagger.core.v3:swagger-annotations:2.1.0'
+        implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.9'
+        implementation 'javax.xml.bind:jaxb-api:2.3.1'
+        implementation 'com.sun.xml.bind:jaxb-core:2.3.0.1'
+        implementation 'com.sun.xml.bind:jaxb-impl:2.3.2'
     }
     openApiGenerate {
         generatorName = "spring"
@@ -79,15 +83,13 @@ project("${rootProject.appName}-server") {
         templateDir = rootProject.templateDirectoryVar
 
         configOptions = [
-                dateLibrary           : "java7",
+                dateLibrary           : "java",
                 'skipDefaultInterface': 'true',
                 'useTags'             : 'true',
                 'interfaceOnly'       : 'true',
                 'useBeanValidation'   : 'true',
-                'delegatePattern'     : 'false'
+                'delegatePattern'     : 'false',
+                'withXml'             : 'true',
         ]
     }
 }
-
-
-
