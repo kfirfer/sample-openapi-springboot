@@ -6,6 +6,7 @@
 package com.kfirfer.userservice.api;
 
 import com.kfirfer.userservice.model.User;
+import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.Explode;
@@ -25,7 +26,7 @@ import java.util.List;
 
 @javax.annotation.Generated(value = "org.springdoc.demo.app2.codegen.languages.SpringCodegen", date = "2019-07-11T00:09:29.839+02:00[Europe/Paris]")
 
-@Tag(name = "user", description = "the user API")
+@Tag(name = "user", description = "Access to Petstore orders", externalDocs = @ExternalDocumentation(description = "Find out more about our store", url = "http://swagger.io"))
 public interface UserApi {
 
 

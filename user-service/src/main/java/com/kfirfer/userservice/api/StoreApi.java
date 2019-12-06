@@ -21,7 +21,7 @@ import java.util.Map;
 
 @javax.annotation.Generated(value = "org.springdoc.demo.app2.codegen.languages.SpringCodegen", date = "2019-07-11T00:09:29.839+02:00[Europe/Paris]")
 
-@Tag(name = "store", description = "the store API")
+@Tag(name = "store", description = "Operations about user")
 public interface StoreApi {
 
     @Operation(summary = "Delete purchase order by ID", operationId = "deleteOrder", description = "For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors", tags = {"store",})

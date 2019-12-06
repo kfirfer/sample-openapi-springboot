@@ -7,6 +7,7 @@ package com.kfirfer.userservice.api;
 
 import com.kfirfer.userservice.model.ModelApiResponse;
 import com.kfirfer.userservice.model.Pet;
+import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.Explode;
@@ -29,7 +30,7 @@ import java.util.List;
 @SecurityScheme(name = "petstore_auth", type = SecuritySchemeType.OAUTH2, flows = @OAuthFlows(implicit = @OAuthFlow(authorizationUrl = "https://petstore3.swagger.io/oauth/authorize", scopes = {
         @OAuthScope(name = "write:pets", description = "modify pets in your account"),
         @OAuthScope(name = "read:pets", description = "read your pets")})))
-@Tag(name = "pet", description = "the pet API")
+@Tag(name = "pet", description = "Everything about your Pets", externalDocs = @ExternalDocumentation(description = "Find out more", url = "http://swagger.io"))
 public interface PetApi {
 
     @Operation(summary = "Add a new pet to the store", description = "Add a new pet to the store", security = {
