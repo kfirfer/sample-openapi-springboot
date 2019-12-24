@@ -5,6 +5,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.springdoc.core.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +15,28 @@ import org.springframework.context.annotation.Bean;
 public class MainApp {
     public static void main(String[] args) {
         SpringApplication.run(MainApp.class, args);
+    }
+
+    @Bean
+    public GroupedOpenApi userOpenApi() {
+        String[] paths = {"/user/**"};
+        String[] packagedToMatch = {"com.kfirfer.userservice.controller"};
+        return GroupedOpenApi.builder().setGroup("users").pathsToMatch(paths).packagesToScan(packagedToMatch)
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi storeOpenApi() {
+        String[] paths = {"/store/**"};
+        return GroupedOpenApi.builder().setGroup("stores").pathsToMatch(paths)
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi petOpenApi() {
+        String[] paths = {"/pet/**"};
+        return GroupedOpenApi.builder().setGroup("pets").pathsToMatch(paths)
+                .build();
     }
 
     @Bean
