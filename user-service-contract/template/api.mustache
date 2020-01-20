@@ -7,6 +7,7 @@ package {{package}};
 
 {{#imports}}import {{import}};
 {{/imports}}
+import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -102,7 +103,12 @@ public interface {{classname}} {
         {{/hasMore}}{{/authMethods}}
     }{{/hasAuthMethods}}, tags={ {{#vendorExtensions.x-tags}}"{{tag}}",{{/vendorExtensions.x-tags}} })
     @ApiResponses(value = { {{#responses}}
-        @ApiResponse(responseCode = "{{{code}}}", description = "{{{message}}}"{{#baseType}}{{/baseType}}{{^baseType}}, content = @Content{{/baseType}}){{#hasMore}},{{/hasMore}}{{/responses}} })
+        @ApiResponse(responseCode = "{{{code}}}", headers = {
+        {{#headers}}
+                @Header(name = "{{{baseName}}}" ,description = "{{{description}}}", schema = @Schema(type = "{{{openApiType}}}", format = "{{{dataFormat}}}")),
+        {{/headers}}
+    }
+           , description = "{{{message}}}"{{#baseType}}{{/baseType}}{{^baseType}}, content = @Content{{/baseType}}){{#hasMore}},{{/hasMore}}{{/responses}} })
     {{#implicitHeaders}}
     @ApiImplicitParams({
     {{#headerParams}}
