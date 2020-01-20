@@ -46,6 +46,7 @@ public class OpenApiDiffApiContract {
         ChangedOpenApi diff = OpenApiCompare.fromLocations(resourceDirectory + "/swagger/documentation/openapi.yml", resourceDirectory + "/swagger/documentation/openapi_from_code.json");
         renderMarkDown(diff);
         Assert.assertEquals(0, diff.getChangedOperations().size());
+        Assert.assertEquals(0, diff.getMissingEndpoints().size());
     }
 
     private void renderMarkDown(ChangedOpenApi diff) throws IOException {
