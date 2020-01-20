@@ -47,6 +47,7 @@ public class OpenApiDiffApiContract {
         renderMarkDown(diff);
         Assert.assertEquals(0, diff.getChangedOperations().size());
         Assert.assertEquals(0, diff.getMissingEndpoints().size());
+        Assert.assertEquals(0, diff.getDeprecatedEndpoints().size());
     }
 
     private void renderMarkDown(ChangedOpenApi diff) throws IOException {
