@@ -27,9 +27,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@SecurityScheme(name = "petstore_auth", type = SecuritySchemeType.OAUTH2, flows = @OAuthFlows(implicit = @OAuthFlow(authorizationUrl = "https://petstore3.swagger.io/oauth/authorize", scopes = {
-        @OAuthScope(name = "write:pets", description = "modify pets in your account"),
-        @OAuthScope(name = "read:pets", description = "read your pets")})))
 @Tag(name = "pet", description = "Everything about your Pets", externalDocs = @ExternalDocumentation(description = "Find out more", url = "http://swagger.io"))
 public interface PetApi {
 
