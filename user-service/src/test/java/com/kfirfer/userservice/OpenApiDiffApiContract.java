@@ -3,6 +3,7 @@ package com.kfirfer.userservice;
 
 import com.qdesrame.openapi.diff.OpenApiCompare;
 import com.qdesrame.openapi.diff.model.ChangedOpenApi;
+import com.qdesrame.openapi.diff.output.HtmlRender;
 import com.qdesrame.openapi.diff.output.MarkdownRender;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
@@ -45,6 +46,7 @@ public class OpenApiDiffApiContract {
 
         ChangedOpenApi diff = OpenApiCompare.fromLocations(resourceDirectory + "/swagger/documentation/openapi.yml", resourceDirectory + "/swagger/documentation/openapi_from_code.json");
         renderMarkDown(diff);
+        renderHtml(diff);
         Assert.assertEquals(0, diff.getChangedOperations().size());
         Assert.assertEquals(0, diff.getMissingEndpoints().size());
         Assert.assertEquals(0, diff.getDeprecatedEndpoints().size());
@@ -54,6 +56,14 @@ public class OpenApiDiffApiContract {
         String render = new MarkdownRender().render(diff);
         FileWriter fw = new FileWriter(
                 resourceDirectory + "/swagger/diff/api_diff-" + diff.getNewSpecOpenApi().getInfo().getVersion() + ".md");
+        fw.write(render);
+        fw.close();
+    }
+
+    private void renderHtml(ChangedOpenApi diff) throws IOException {
+        String render = new HtmlRender().render(diff);
+        FileWriter fw = new FileWriter(
+                resourceDirectory + "/swagger/diff/api_diff-" + diff.getNewSpecOpenApi().getInfo().getVersion() + ".html");
         fw.write(render);
         fw.close();
     }
