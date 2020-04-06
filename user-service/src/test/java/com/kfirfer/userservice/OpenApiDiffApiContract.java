@@ -9,6 +9,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openapi.diff.ignore.processors.ContextProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -37,6 +39,14 @@ public class OpenApiDiffApiContract {
     @Test
     public void apiContractTest() throws Exception {
 
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL url = classLoader.getResource(".diffignore.yaml");
+        assert url != null;
+        url.getFile();
+        ContextProcessor contextProcessor = new ContextProcessor(
+                url.getFile()
+        );
+
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api-docs").accept(MediaType.APPLICATION_JSON))
                 .andDo((result) -> {
                     String swaggerJsonString = result.getResponse().getContentAsString();
@@ -45,6 +55,8 @@ public class OpenApiDiffApiContract {
 
 
         ChangedOpenApi diff = OpenApiCompare.fromLocations(resourceDirectory + "/swagger/documentation/openapi.yml", resourceDirectory + "/swagger/documentation/openapi_from_code.json");
+        contextProcessor.process(diff);
+
         renderMarkDown(diff);
         renderHtml(diff);
         Assert.assertEquals(0, diff.getChangedOperations().size());

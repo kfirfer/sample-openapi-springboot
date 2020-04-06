@@ -66,9 +66,9 @@
 
         <!-- Get this dependency from github (It is not yet on maven repository)-->
         <dependency>
-            <groupId>com.qdesrame</groupId>
+            <groupId>com.github.elibracha</groupId>
             <artifactId>openapi-diff</artifactId>
-            <version>2.0.0-SNAPSHOT</version>
+            <version>2.2.5</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>

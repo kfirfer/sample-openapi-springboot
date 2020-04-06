@@ -14,7 +14,7 @@ import java.util.Objects;
  * User
  */
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2019-12-02T19:53:02.467132-01:00[Atlantic/Azores]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-06T14:41:19.244306+03:00[Asia/Jerusalem]")
 @JacksonXmlRootElement(localName = "user")
 @XmlRootElement(name = "user")
 @XmlAccessorType(XmlAccessType.FIELD)
