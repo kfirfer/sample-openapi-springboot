@@ -18,7 +18,7 @@ import java.util.Objects;
  * Order
  */
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-06T14:41:19.244306+03:00[Asia/Jerusalem]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-14T21:25:24.942975+03:00[Asia/Jerusalem]")
 @JacksonXmlRootElement(localName = "order")
 @XmlRootElement(name = "order")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -257,8 +257,12 @@ public class Order {
             throw new IllegalArgumentException("Unexpected value '" + value + "'");
         }
 
-        @Override
         @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
         public String toString() {
             return String.valueOf(value);
         }

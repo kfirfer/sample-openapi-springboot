@@ -4,13 +4,13 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.openapitools:openapi-generator-gradle-plugin:4.2.2"
+        classpath "org.openapitools:openapi-generator-gradle-plugin:4.3.0"
 
     }
 }
 
 plugins {
-    id "org.openapi.generator" version "4.2.2"
+    id "org.openapi.generator" version "4.3.0"
 }
 apply plugin: 'base'
 
@@ -63,12 +63,12 @@ ext.templateDirectoryVar = "${rootDir}/template"
 project("${rootProject.appName}-server") {
 
     dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter-web:2.2.1.RELEASE'
-        implementation 'io.swagger:swagger-annotations:1.5.24'
-        implementation 'com.github.joschi.jackson:jackson-datatype-threetenbp:2.6.4'
+        implementation 'org.springframework.boot:spring-boot-starter-web:2.2.6.RELEASE'
+        implementation 'io.swagger:swagger-annotations:1.6.1'
+        implementation 'com.github.joschi.jackson:jackson-datatype-threetenbp:2.10.0'
         implementation 'org.openapitools:jackson-databind-nullable:0.2.0'
-        implementation 'io.swagger.core.v3:swagger-annotations:2.1.1'
-        implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.10.1'
+        implementation 'io.swagger.core.v3:swagger-annotations:2.1.2'
+        implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.10.3'
         implementation 'javax.xml.bind:jaxb-api:2.3.1'
         implementation 'com.sun.xml.bind:jaxb-core:2.3.0.1'
         implementation 'com.sun.xml.bind:jaxb-impl:2.3.2'
